@@ -24,9 +24,21 @@ app.use('/states', statesRouter);
 // applications
 app.use('/applications', applicationsRouter);
 
-// route to server
-// app.use()
+// Global error handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  return res.status(errorObj.status).json(errorObj.message);
+});
+
+// 404 handler
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
+
+module.exports = app;
