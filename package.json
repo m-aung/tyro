@@ -36,7 +36,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-pure-lifecycle": "^3.0.0",
+    "react-redux": "^7.2.3",
     "react-select": "^0.9.1",
+    "redux": "^4.0.5",
     "topojson": "^1.6.20"
   },
   "devDependencies": {
