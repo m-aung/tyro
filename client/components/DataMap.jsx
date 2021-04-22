@@ -11,6 +11,7 @@ export default class DataMap extends React.Component {
   constructor(props){
     super(props);
     this.datamap = null;
+    this.isLoggedIn = false;
   }
   linearPalleteScale(value){ // for hesh color of the region
     const dataValues = this.props.regionData.map(function(data) { return Math.floor(data.cost_of_living_index) }); // define d3 color range
@@ -42,13 +43,16 @@ export default class DataMap extends React.Component {
         borderWidth: 0.5,
         highlightFillColor: '#FFCC80',
         popupTemplate: function(geography, data) {
-          // console.log('geography is', geography);
           console.log('Data is from popupTemplate:', data)
-          if (data /*&& data.cost_of_living_index*/) {
+          if (data && isLoggedIn) { 
             // console.log('Am I inside yet?')
             return `<div class="hoverinfo"><strong> ${geography.properties.name} <br> Avg Salary: ${data.salary} <br> Avg Living: ${data.value} </strong></div>`;
-          } else {
-            return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>';
+          }
+          
+          //   return (`<div class="hoverinfo"><strong> ${geography.properties.name} <br> Avg Salary: ${data.salary} <br> Avg Living: ${data.value} <br> Applied: ${data.application} </strong></div>`);
+          else{
+            console.log('we are here');
+            return `<div class="hoverinfo"><strong> ${geography.properties.name} </strong></div>`;
           }
         }
       }
@@ -60,9 +64,9 @@ export default class DataMap extends React.Component {
         document.body.clientWidth;
   }
   componentDidMount(){
-    console.log('window.innerWidth',window.innerWidth);
-    console.log('document.documentElement.clientWidth:', document.documentElement.clientWidth);
-    console.log('document.body.clientWidth:', document.body.clientWidth)
+    // console.log('window.innerWidth',window.innerWidth);
+    // console.log('document.documentElement.clientWidth:', document.documentElement.clientWidth);
+    // console.log('document.body.clientWidth:', document.body.clientWidth)
 
     const mapContainer = d3.select('#datamap-container');
     const initialScreenWidth = this.currentScreenWidth();

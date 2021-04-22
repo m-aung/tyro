@@ -110,7 +110,8 @@ const statesDefaults = {
 };
 // adding new properties into the statesDefault obj
 Object.keys(statesDefaults).forEach((element) => {
-  console.log(statesDefaults[element]);
+  // console.log(statesDefaults[element]);
   statesDefaults[element]['salary'] = null;
+  statesDefaults[element]['application'] = 0;
 });
 export default statesDefaults;
