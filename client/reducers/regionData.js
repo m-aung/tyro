@@ -5,7 +5,6 @@ export default function regionData(state = [], action) {
   switch (action.type) {
     case EDIT_ROW:
       return state.map((data) => {
-        console.log('Inside regionData.js');
         if (data.regionName === action.regionName) {
           return objectAssign({}, data, { value: action.value });
         } else {
@@ -15,7 +14,6 @@ export default function regionData(state = [], action) {
 
     case DELETE_ROW:
       return state.filter((data) => {
-        console.log('Inside regionData.js');
         return data.regionName !== action.regionName;
       });
 

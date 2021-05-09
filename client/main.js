@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
 import App from './containers/App';
-import statesData from './data/statesData'; // initial state data
+import statesData from './data/stateData'; // initial state data
 
 const initialState = {
   regionData: statesData,

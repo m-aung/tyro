@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { editRow, deleteRow, addRow, toggleDirection } from '../actions';
 
 import DataMap from '../components/DataMap';
-import DataTableBox from '../components/DataTableBox';
-import Navbar from '../components/Navbar';
+// import LoginComponent from '../components/LoginComponent';
+// import DataTableBox from '../components/DataTableBox';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,72 +27,63 @@ class App extends React.Component {
     this.props.dispatch(toggleDirection(newSortKey));
   }
   render() {
-    let hideTable = true;
-    let table;
-    if (!hideTable) {
-      table = <DataTableBox
-      regionData={this.props.regionData}
-      emptyRegions={this.props.emptyRegions}
-      sortState={this.props.sortState}
-      onEditRow={this.handleEditRow}
-      onDeleteRow={this.handleDeleteRow}
-      onAddRow={this.handleAddRow}
-      toggleDirection={this.handleToggleDirection}
-    />
-    }
+
     return (
       <div>
-        {/* <Navbar /> */}
-        <div className='datamap-outer-conainer'>
-          <DataMap regionData={this.props.regionData} />
-        </div>
-        {table}
+      <h3>Democratizing software developer salary info so you don't have too</h3>
+      {/* <LoginComponent/> */}
+      <div className='datamap-outer-conainer'>
+      <DataMap 
+      regionData={this.props.regionData} 
+      />
       </div>
-    );
+      </div>
+      );
+    }
   }
-}
-
-App.propTypes = {
-  regionData: React.PropTypes.array.isRequired,
-  emptyRegions: React.PropTypes.array.isRequired,
-  sortState: React.PropTypes.object.isRequired,
-};
-
-function sortCollection(collection, sortState) {
-  switch (sortState.direction) {
-    case 'ASC':
+  
+  App.propTypes = {
+    regionData: React.PropTypes.array.isRequired,
+    emptyRegions: React.PropTypes.array.isRequired,
+    sortState: React.PropTypes.object.isRequired,
+  };
+  
+  function sortCollection(collection, sortState) {
+    switch (sortState.direction) {
+      case 'ASC':
       return collection.sort(function (a, b) {
         if (a[sortState.key] > b[sortState.key]) return 1;
         if (a[sortState.key] < b[sortState.key]) return -1;
         return 0;
       });
-
-    case 'DESC':
+      
+      case 'DESC':
       return collection.sort(function (a, b) {
         if (a[sortState.key] > b[sortState.key]) return -1;
         if (a[sortState.key] < b[sortState.key]) return 1;
         return 0;
       });
-
-    default:
+      
+      default:
       return collection;
+    }
   }
-}
-
-function alphabeticOrder(collection) {
-  return collection.sort(function (a, b) {
-    if (a.regionName > b.regionName) return 1;
-    if (a.regionName < b.regionName) return -1;
-    return 0;
-  });
-}
-
-function mapStateToProps(state) {
-  return {
-    regionData: sortCollection(state.regionData, state.sortState),
-    emptyRegions: alphabeticOrder(state.emptyRegions),
-    sortState: state.sortState,
-  };
-}
-
-export default connect(mapStateToProps)(App);
+  
+  function alphabeticOrder(collection) {
+    return collection.sort(function (a, b) {
+      if (a.regionName > b.regionName) return 1;
+      if (a.regionName < b.regionName) return -1;
+      return 0;
+    });
+  }
+  
+  function mapStateToProps(state) {
+    return {
+      regionData: sortCollection(state.regionData, state.sortState),
+      emptyRegions: alphabeticOrder(state.emptyRegions),
+      sortState: state.sortState,
+    };
+  }
+  
+  export default connect(mapStateToProps)(App);
+  
